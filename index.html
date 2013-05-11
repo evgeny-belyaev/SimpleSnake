@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My simple project</title>
+    <script type="text/javascript">
+        require = {
+            urlArgs: "ts=" + (+new Date()),
+            shim: {
+                'underscore': {
+                    exports: '_'
+                }
+            }
+        };
+    </script>
+    <script type="text/javascript" data-main="scripts/app" src="scripts/require.js"></script>
+</head>
+<body>
+<canvas id="canvas" width="600" height="600"></canvas>
+</body>
+</html>
