@@ -1,0 +1,10 @@
+{
+	"name": "Simple Snake",
+	"description": "My simple snake!",
+	"launch_path": "/",
+	"developer": {
+		"name": "Evgeny Belyaev",
+		"url": "https://github.com/evgeny-belyaev"
+	},
+	"default_locale": "en"
+}
