@@ -5,7 +5,7 @@ define('app', ['underscore', 'paper', 'install'], function () {
 
 	paper.project.currentStyle = {
 		strokeColor: 'black',
-		strokeWidth: 5,
+		strokeWidth: 10,
 		strokeCap: 'round',
 		strokeJoin: 'round'
 	};
@@ -13,10 +13,15 @@ define('app', ['underscore', 'paper', 'install'], function () {
 	var direction = [1, 0],
 		k = 5,
 		timestep = 50,
+		screen = {
+			width: 300,
+			height: 300
+		},
 		snake = new paper.Path({
 			segments: _.map(_.range(10), function (x) {
 				return [10 + x * k, 50];
-			})
+			}),
+			closed: false
 		});
 
 	window.addEventListener('keypress', function (e) {
@@ -40,16 +45,28 @@ define('app', ['underscore', 'paper', 'install'], function () {
 		}
 	});
 
-	paper.view.onFrame = _.throttle(function () {
-		snake.removeSegment(0);
+	var update = _.throttle(function () {
+		var last = _.last(snake.segments),
+			nextX, nextY;
 
-		var last = _.last(snake.segments);
-		snake.addSegment([
-			last.point.x + k * direction[0],
-			last.point.y + k * direction[1]
-		]);
+		if (last.point.x === 0 || last.point.x === screen.width) {
+			direction[0] = -direction[0];
+		}
+
+		if (last.point.y === 0 || last.point.y === screen.height) {
+			direction[1] = -direction[1];
+		}
+
+		nextX = (last.point.x + k * direction[0]);
+		nextY = (last.point.y + k * direction[1]);
+
+		snake.removeSegment(0);
+		snake.addSegment([nextX, nextY]);
 	}, timestep);
 
-	paper.view.draw();
+	paper.view.onFrame = function(e) {
+		update();
+	};
 
+	paper.view.draw();
 })
