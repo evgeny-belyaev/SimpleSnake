@@ -1,4 +1,4 @@
-define('app', ['underscore', 'paper', 'install'], function () {
+define('app', ['underscore', 'paper'], function () {
 
 	var canvas = document.getElementById('canvas');
 	paper.setup(canvas);
